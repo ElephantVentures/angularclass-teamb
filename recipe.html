@@ -7,26 +7,34 @@
   angular.module('recipeApp', [])
     .controller('RecipeController', [function() {
       var self = this;
+      // Internal state: list of dishes
       self.dishes = [
+        // Mock list for testing
         {name: 'lasagna', ingredients: [{name:'meat'}, {name:'cheese'}, {name:'sauce'}, {name:'noodles'}], disabled:true},
         {name: 'soup dumplings', ingredients: [{name:'soup'}, {name:'dumpling wrappers'}, {name:'meat'}], disabled:true}
       ];
+      // Add a new dish to the list of dishes
       self.addDish = function () {
+        // Push the form data into the internal state
         self.dishes.push( {
           name: self.newDish.name,
           ingredients: [ {name:self.newDish.ingredient1}, {name:self.newDish.ingredient2} ],
-          disabled: true
+          disabled: true  // the new dish list item should initially be disabled from editing
         } );
+        // Wipe the form data to allow for another swing of the bat
         self.newDish.name = '';
         self.newDish.ingredient1 = '';
         self.newDish.ingredient2 = '';
       };
+      // When editing the dish, enable the dish form items (and disable the edit button)
       self.editDish = function(dish) {
         dish.disabled = false;
       };
+      // When saving the dish, disable the dish form items
       self.saveDish = function(dish) {
         dish.disabled = true;
       }
+      // TODO: these toggles could be simplified ...
     }]);
 </script>
 <style type="text/css">
